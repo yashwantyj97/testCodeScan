@@ -106,6 +106,7 @@ export class FileController {
   ): Promise<string> {
     try {
       if (typeof raw === 'string' || Buffer.isBuffer(raw)) {
+        await fs.promises.access(path.dirname(file), W_OK);
         await fs.promises.writeFile(file, raw);
         return 'File uploaded successfully';
       }
